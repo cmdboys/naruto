@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>火影——青春</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<style type="text/css">
+		#video-box {
+			height: 600px;
+			background-color: #000;
+		}
+		body{
+			background-image: url(https://i.loli.net/2018/08/26/5b828607af65c.jpg);
+			background-position: bottom center;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.my-content {
+			width: 1200px;
+			margin: 0 auto;
+			margin-top: 10px;
+
+		}
+		.my-content .left-video {
+			width: 900px;
+			height: 600px;
+			background-color: rgba(0, 0, 0, .8);
+		}
+		.my-content .right-menu {
+			width: 300px;
+			height: 600px;
+			background-color: rgba(0, 0, 0, .6);
+			overflow-y: auto;
+			box-sizing: border-box;
+			padding: 10px;
+		}
+
+
+		.right-menu .menu li{
+			margin-bottom: 4px;
+			color: rgba(255, 255, 255, .7);
+			font-size: 16px;
+			cursor: pointer;
+		}
+		.right-menu .menu li:hover, .right-menu .menu li.active {
+			color: #E00;
+		}
+
+		li {
+			list-style: none;
+		}
+		ul, li{
+			padding: 0;
+		}
+
+		#playerBox iframe {
+			width: 100%;
+			height: 100%;
+			border: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="my-content">
+		<div id="video-box clearfix">
+			<div class="left-video pull-left" id="playerBox">
+				
+			</div>
+
+			<div class="right-menu pull-right">
+				<ul class="menu clearfix" id="pcMenu">
+					<li><a href="#">阿杜哈桑大户</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="./video.js"></script>
+<script type="text/javascript">
+	function createDom(href, title) {
+		return '<li data-vhref="'+href+'">'+title+'</li>'
+	}
+	var bestUrl = '//v.youku.com/v_show/id_{{id}}.html'
+	var bestPlay = 'http://yun.baiyug.cn/vip/index.php'
+
+	function getUrl(id) {
+		return bestUrl.replace('{{id}}', id)
+	}
+
+	function toPlayer(href) {
+		$('#playerBox').html('<iframe src="http://yun.baiyug.cn/vip/index.php?url='+href+'" class="to"></iframe>')
+	}
+	$(function () {
+		var pcHtml = ''
+		$.each(video, function (i, v) {
+			pcHtml+= createDom(getUrl(v.link), (i+1) + '. ' + v.title)
+		})
+		$('#pcMenu').html(pcHtml)
+
+		$('#pcMenu').on('click', function (e) {
+			e.preventDefault()
+			var href =$(e.target).data().vhref
+
+			if(href) {
+				$(e.target).addClass('active').siblings().removeClass('active')
+				toPlayer(href)
+			}
+		})
+	})
+</script>
+</html>

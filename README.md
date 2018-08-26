@@ -4,8 +4,6 @@
 ## 说明
 本项目的初衷是寻找最初火影的记忆，非营利。如果侵犯到您的权益请联系 `millent@foxmail.com`
 
-## pc
+## 截图
 ![QQ截图20180826205720.png](https://i.loli.net/2018/08/26/5b82a40712283.png)
 
-## m
-![Screenshot_2018-08-26-20-57-46-046_com.tencent.mt.png](https://i.loli.net/2018/08/26/5b82a40651638.png)

@@ -9,6 +9,8 @@
 ### Link
 <a href="http://www.thisummer.top/hy/">http://www.thisummer.top/hy/</a>
 
+### QA
+* 目前是靠第三方解析，会有广告，微信支持不太友好。
 
 ### 截图
 ![QQ截图20180826205720.png](https://i.loli.net/2018/08/26/5b82a40712283.png)

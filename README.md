@@ -7,10 +7,10 @@
 <a class="btn btn-success" target="_blank" href="https://github.com/cmdboys/naruto/issues/new">发表评论</a>
 
 ### Link
-<a href="http://www.thisummer.top/hy/">http://www.thisummer.top/hy/</a>
+<a href="http://cmdboys.com/hy/">http://cmdboys.com/hy/</a>
 
 ### QA
-* 目前是靠第三方解析，会有广告，微信支持不太友好。
+* 目前是靠第三方解析，会有广告，目前使用div遮挡了广告
 
 ### 截图
 ![QQ截图20180826205720.png](https://i.loli.net/2018/08/26/5b82a40712283.png)

@@ -6,7 +6,6 @@
 	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<style type="text/css">
 		#video-box {
-			height: 600px;
 			background-color: #000;
 		}
 		body{
@@ -14,6 +13,7 @@
 			background-position: bottom center;
 			background-size: cover;
 			background-attachment: fixed;
+			transform: translate3d(0, 0, 0);
 		}
 		.my-content {
 			width: 1200px;
@@ -25,6 +25,16 @@
 			width: 900px;
 			height: 600px;
 			background-color: rgba(0, 0, 0, .8);
+			position: relative;
+		}
+		.my-content .left-video .nonono{
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: 96px;
+			background-color: #000;
+			display: none;
 		}
 		.my-content .right-menu {
 			width: 300px;
@@ -52,26 +62,119 @@
 		ul, li{
 			padding: 0;
 		}
-
 		#playerBox iframe {
 			width: 100%;
 			height: 100%;
 			border: none;
 		}
+
+		.m-menu-box {
+			margin-top: 10px;
+			margin-bottom: 10px;
+			box-sizing: border-box;
+			padding: 0 10px;
+		}
+
+		.m-menu-box .btn-item {
+			margin-bottom: 6px;
+			margin-right: 6px;
+		}
+
+		.m-menu-box .btn-item.active {
+			color: #E00;
+		}
+
+		.juji-item {
+			max-height: 200px;
+			overflow-y: auto;
+		}
+		.juji-item .item {
+			width: 20%;
+			float: left;
+			box-sizing: border-box;
+			border: 1px solid #ccc;
+			height: 40px;
+			line-height: 40px;
+			background-color: rgba(255, 255, 255, .8);
+			text-align: center;
+		}
+		.juji-item .item.active{
+			color: #E00;
+		}
+
+		.juji-box .juji-item {
+			display: none;
+		}
+		.m-menu-box {
+			display: none;
+		}
+
+		@media all and (max-width: 1000px){
+			.right-menu {
+				display: none;
+			}
+			.my-content {
+				width: 100%  !important;
+			}
+
+			.my-content .left-video {
+				height: 500px;
+				width: 100%;
+			}
+			.my-content .left-video .nonono{
+				display: block;
+			}
+			.m-menu-box {
+				display: block;
+			}
+		}
+
+		@media all and (max-width: 768px){ 
+			.my-content .left-video {
+				height: 400px;
+				width: 100%;
+			}
+		}
+
+		@media all and (max-width: 600px){ 
+			.my-content .left-video {
+				height: 300px;
+				width: 100%;
+			}
+		}
 	</style>
 </head>
 <body>
 	<div class="my-content">
-		<div id="video-box clearfix">
+		<div id="video-box" class="clearfix">
 			<div class="left-video pull-left" id="playerBox">
 				
 			</div>
 
 			<div class="right-menu pull-right">
 				<ul class="menu clearfix" id="pcMenu">
-					<li><a href="#">阿杜哈桑大户</a></li>
 				</ul>
 			</div>
+		</div>
+
+		<div class="m-menu-box" id="m-menu">
+			<div class="top-menu">
+				<div class="wrap clearfix" id="pheader">
+
+				</div>
+			</div>
+
+			<hr>
+
+			<div class="juji-box">
+
+			</div>
+		</div>
+
+		<div class="comment" style="color: #fff;background-color: rgba(0, 0, 0, .6);box-sizing: border-box;padding: 10px;">
+			<a class="btn btn-success" target="_blank" href="https://github.com/cmdboys/naruto/issues">讨论区</a>
+			<a class="btn btn-success" target="_blank" href="https://github.com/cmdboys/naruto/issues/new">发表评论</a>
+			<p>本站为非营利性质，如果侵犯到您的权益，请反馈给我。 millent@foxmail.com</p>
 		</div>
 	</div>
 </body>
@@ -81,6 +184,10 @@
 	function createDom(href, title) {
 		return '<li data-vhref="'+href+'">'+title+'</li>'
 	}
+	function createMDom(href, title) {
+		return '<div class="item" data-vhref="'+href+'">'+title+'</div>'
+	}
+
 	var bestUrl = '//v.youku.com/v_show/id_{{id}}.html'
 	var bestPlay = 'http://yun.baiyug.cn/vip/index.php'
 
@@ -89,7 +196,7 @@
 	}
 
 	function toPlayer(href) {
-		$('#playerBox').html('<iframe src="http://yun.baiyug.cn/vip/index.php?url='+href+'" class="to"></iframe>')
+		$('#playerBox').html('<iframe src="http://yun.baiyug.cn/vip/index.php?url='+href+'" class="to"></iframe><div class="nonono"></div>')
 	}
 	$(function () {
 		var pcHtml = ''
@@ -105,6 +212,78 @@
 			if(href) {
 				$(e.target).addClass('active').siblings().removeClass('active')
 				toPlayer(href)
+			}
+		})
+
+
+		toPlayer(getUrl(video[0].link))
+	})
+
+
+
+	$(function () {
+		var phoneHeaderHtml = ''
+		var phoneContentHtml = ''
+
+		var fox = Math.floor(video.length / 100)
+
+		for(var i=0; i<fox; i++) {
+			var begin = i * 100 + 1
+			var end = (i+1) * 100
+
+			phoneHeaderHtml += '<button class="btn btn-success btn-item">'+ begin + '-' + end  +'</button>'
+		}
+
+		phoneHeaderHtml += '<button class="btn btn-success btn-item">'+ (fox * 100 + 1) + '-' + video.length  +'</button>'
+
+		$('#pheader').html(phoneHeaderHtml)
+		$('#pheader').children().eq(0).addClass('active')
+
+
+
+		for(var i=0; i<fox; i++) {
+			var begin = i * 100 + 1
+			var end = (i+1) * 100
+
+			phoneContentHtml += '<div class="juji-item clearfix">'
+
+			for(var j=0; j<100; j++){
+				var target = video[i*100 + j]
+				phoneContentHtml += createMDom(target.link, i*100 + j + 1)
+			}
+
+			phoneContentHtml += '</div>'
+		}
+
+
+		phoneContentHtml += '<div class="juji-item clearfix">'
+
+		var ggSub = video.length - fox * 100
+
+		for(var k=0; k<ggSub; k++) {
+			var target = video[fox * 100 + k]
+			phoneContentHtml += createMDom(target.link, fox * 100 + k + 1)
+		}
+
+		phoneContentHtml += '</div>'
+
+
+		$('.juji-box').html(phoneContentHtml)
+		$('.juji-box').children().eq(0).show()
+
+		// event
+		$('#pheader').on('click', function (e) {
+			$(e.target).addClass('active').siblings().removeClass('active')
+			$('.juji-box').children().hide()
+			$('.juji-box').children().eq($(e.target).index()).show()
+		})
+
+		$('.juji-box').on('click', function (e) {
+			e.preventDefault()
+			var href =$(e.target).data().vhref
+			if(href) {
+				$(e.target).addClass('active').siblings().removeClass('active')
+				toPlayer(getUrl(href))
 			}
 		})
 	})

@@ -6,9 +6,6 @@
 <a class="btn btn-success" target="_blank" href="https://github.com/cmdboys/naruto/issues">讨论区</a>
 <a class="btn btn-success" target="_blank" href="https://github.com/cmdboys/naruto/issues/new">发表评论</a>
 
-### Link
-<a href="http://cmdboys.com/hy/">http://cmdboys.com/hy/</a>
-
 ### QA
 * 目前是靠第三方解析，会有广告，目前使用div遮挡了广告
 
